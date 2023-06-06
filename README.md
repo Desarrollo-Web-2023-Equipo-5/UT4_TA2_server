@@ -2,13 +2,13 @@
 `npm run start`
 
 # Endpoints
-`GET: /users/:id`: Get user by id
-`POST: /users`: Create user
-`GET: /users/:id/tasks`: Get all user tasks
-`POST: /users/:id/tasks`: Create a user task
-`DELETE: /users/:id/tasks/:tid`: Delete task from user by id
-`PATCH: /users/:id/tasks/:tid`: Update task from user by id
-`GET: /users/:id/tasks?done=true`: Get all incompleted tasks from user by id
+- `GET: /users/:id`: Get user by id
+- `POST: /users`: Create user
+- `GET: /users/:id/tasks`: Get all user tasks
+- `POST: /users/:id/tasks`: Create a user task
+- `DELETE: /users/:id/tasks/:tid`: Delete task from user by id
+- `PATCH: /users/:id/tasks/:tid`: Update task from user by id
+- `GET: /users/:id/tasks?done=true`: Get all incompleted tasks from user by id
 
 # Definitions
 
