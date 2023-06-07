@@ -61,6 +61,7 @@ export const getUserById = (req: Request, res: Response) => {
 
 export const getTasks = (req: Request, res: Response) => {
   const { id } = req.params;
+  const { done } = req.query;
 
   if (!id) {
     return res.status(400).json({ code: UserErrorCode.UserIdRequired });
@@ -72,12 +73,16 @@ export const getTasks = (req: Request, res: Response) => {
     return res.status(404).json({ code: UserErrorCode.UserNotFound });
   }
 
-  const tasks = newUser.tasks;
+  let tasks = newUser.tasks;
 
-  if (tasks) {
-    return res.status(200).json({ code : TaskErrorCode.TaskFound , tasks });
+  if (done !== undefined) {
+    const doneStatus = done === 'true';
+    tasks = tasks.filter((task: Task) => task.done === doneStatus);
   }
 
+  if (tasks) {
+    return res.status(200).json({ code: TaskErrorCode.TaskFound, tasks });
+  }
 
   return res.status(500).json({ code: GeneralErrorCode.InternalServerError });
 };
@@ -138,9 +143,5 @@ export const addTask = (req: Request, res: Response) => {
 };
 
 export const updateTask = (req: Request, res: Response) => {
-  throw Error("Not implemented");
-};
-
-export const filterTasks = (req: Request, res: Response) => {
   throw Error("Not implemented");
 };
