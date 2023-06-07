@@ -75,7 +75,7 @@ export const getTasks = (req: Request, res: Response) => {
   const tasks = newUser.tasks;
 
   if (tasks) {
-    return res.status(200).json({ code : TaskErrorCode.TaskFound ,task:tasks });
+    return res.status(200).json({ code : TaskErrorCode.TaskFound , tasks });
   }
 
 
@@ -102,8 +102,8 @@ export const addTask = (req: Request, res: Response) => {
         return res.status(400).json({ code: TaskErrorCode.TaskDescriptionRequired });
     }
 
-    if (!body.done) {
-        return res.status(400).json({ code: TaskErrorCode.TaskStatusRequired} )
+    if (!body.done.toString()) {
+        return res.status(400).json({ code: TaskErrorCode.TaskStatusRequired } )
     }
 
     const newTask: Task = {
@@ -114,7 +114,7 @@ export const addTask = (req: Request, res: Response) => {
     const createdUser: User = USERS.find((user: User) => user.id === id);
     createdUser.tasks.push(newTask)
 
-    return res.status(201).json({ code: TaskErrorCode.TaskCreated} )
+    return res.status(201).json({ code: TaskErrorCode.TaskCreated } )
 };
 
 export const updateTask = (req: Request, res: Response) => {
