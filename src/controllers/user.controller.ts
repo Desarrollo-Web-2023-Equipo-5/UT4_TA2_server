@@ -83,7 +83,27 @@ export const getTasks = (req: Request, res: Response) => {
 };
 
 export const deleteTask = (req: Request, res: Response) => {
-  throw Error("Not implemented");
+    const {id, tid} = req.params;
+
+    if(!id || !tid) {
+        return res.status(400).json({ code: TaskErrorCode.TaskIdRequired });
+    }
+
+    const foundUser = USERS.find((user: User) => user.id === id);
+
+    if (!foundUser) {
+        return res.status(404).json({ code: UserErrorCode.UserNotFound });
+    }
+
+    const taskIndex = foundUser.tasks.findIndex((task) => task.id === tid);
+
+    if (taskIndex === -1){
+        return res.status(500).json({ code: TaskErrorCode.TaskNotFound })
+    }
+
+    foundUser.tasks.splice(taskIndex, 1)
+
+    return res.status(200).json({ code: TaskErrorCode.TaskDeleted });
 };
 
 export const addTask = (req: Request, res: Response) => {

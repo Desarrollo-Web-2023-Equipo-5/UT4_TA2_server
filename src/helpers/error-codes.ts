@@ -16,12 +16,14 @@ export enum UserErrorCode {
     UserPasswordRequired = 'ERR_USER_PASSWORD_REQUIRED',
 }
 
+
 export enum TaskErrorCode {
     TaskNotFound = 'ERR_TASK_NOT_FOUND',
     TaskFound = 'ERR_TASK_FOUND',
     TaskCreated = 'ERR_TASK_CREATED',
+    TaskDeleted = 'ERR_TASK_DELETED',
     TaskIdRequired = 'ERR_TASK_ID_REQUIRED',
     TaskNameRequired = 'ERR_TASK_NAME_REQUIRED',
     TaskDescriptionRequired = 'ERR_TASK_DESCRIPTION_REQUIRED',
-    TaskStatusRequired = 'ERR_TASK_STATUS_REQUIRED',
+    TaskStatusRequired = 'ERR_TASK_STATUS_REQUIRED'
 }
