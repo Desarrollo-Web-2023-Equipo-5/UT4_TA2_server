@@ -2,7 +2,7 @@ import { USERS } from "../services/user.service";
 import { User } from "../models/user.interface";
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-import { GeneralErrorCode, UserErrorCode } from "../helpers/error-codes";
+import { GeneralErrorCode, TaskErrorCode, UserErrorCode } from "../helpers/error-codes";
 
 export const createUser = (req: Request, res: Response) => {
   const { body } = req;
@@ -73,8 +73,9 @@ export const getTasks = (req: Request, res: Response) => {
   const tasks = newUser.tasks;
 
   if (tasks) {
-    return res.status(200).json({ tasks });
+    return res.status(200).json({ code : TaskErrorCode.TaskFound ,task:tasks });
   }
+
 
   return res.status(500).json({ code: GeneralErrorCode.InternalServerError });
 };
