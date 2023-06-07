@@ -1,8 +1,10 @@
 import { USERS } from "../services/user.service";
 import { User } from "../models/user.interface";
 import { Request, Response } from "express";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import { GeneralErrorCode, TaskErrorCode, UserErrorCode } from "../helpers/error-codes";
+import { Task } from "../models/task.interface";
+
 
 export const createUser = (req: Request, res: Response) => {
   const { body } = req;
@@ -85,7 +87,34 @@ export const deleteTask = (req: Request, res: Response) => {
 };
 
 export const addTask = (req: Request, res: Response) => {
-  throw Error("Not implemented");
+    const { body } = req;
+    const { id } = req.params;
+
+    if (!body) {
+        return res.status(400).json({ code: GeneralErrorCode.BodyRequired });
+    }
+
+    if (!body.title) {
+        return res.status(400).json({ code: TaskErrorCode.TaskNameRequired });
+    }
+
+    if (!body.description) {
+        return res.status(400).json({ code: TaskErrorCode.TaskDescriptionRequired });
+    }
+
+    if (!body.done) {
+        return res.status(400).json({ code: TaskErrorCode.TaskStatusRequired} )
+    }
+
+    const newTask: Task = {
+        ...body,
+        id: uuidv4()
+    }
+
+    const createdUser: User = USERS.find((user: User) => user.id === id);
+    createdUser.tasks.push(newTask)
+
+    return res.status(201).json({ code: TaskErrorCode.TaskCreated} )
 };
 
 export const updateTask = (req: Request, res: Response) => {
